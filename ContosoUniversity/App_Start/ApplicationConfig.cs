@@ -15,7 +15,6 @@ namespace ContosoUniversity
             // Set up configuration sources.
             var builder = new ConfigurationBuilder()
                 .SetBasePath(GetContentRoot())
-                //.AddJsonFile("appsettings.json", optional: false, reloadOnChange: false)
                 .AddJsonFile($"appsettings.{environment}.json", optional: true)
                 .AddEnvironmentVariables()
                 .AddCloudFoundry();

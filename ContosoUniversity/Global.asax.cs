@@ -33,8 +33,8 @@ namespace ContosoUniversity
             
             // application is displaying a yellow screen here.
             // "No such host is known"
-            var address = Dns.GetHostAddresses(host);
-            foreach (var ipAddress in address)
+            var addresses = Dns.GetHostAddresses(host);
+            foreach (var ipAddress in addresses)
             {
                 Logger.Instance.Information($"Address - {ipAddress}");
             }
