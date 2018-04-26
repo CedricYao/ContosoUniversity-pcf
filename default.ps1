@@ -121,7 +121,7 @@ task UpdateTestDatabase {
 }
 
 task Compile -depends Clean { 
-    #exec { & $nuget_exe restore $source_dir\$project_name.sln }
+    exec { & $nuget_exe restore $source_dir\$project_name.sln }
     exec { msbuild.exe /t:build /v:q /p:Configuration=$project_config /p:Platform="Any CPU" /nologo $source_dir\$project_name.sln }
 }
 
