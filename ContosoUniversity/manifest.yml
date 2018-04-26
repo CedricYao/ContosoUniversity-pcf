@@ -5,3 +5,5 @@ applications:
   stack: windows2012R2 
   buildpack: hwc_buildpack
   random-route: true
+  env:
+    APP_ENVIRONMENT: production

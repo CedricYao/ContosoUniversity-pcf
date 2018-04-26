@@ -14,7 +14,7 @@ namespace ContosoUniversity
     {
         protected void Application_Start()
         {
-            var environment = Environment.GetEnvironmentVariable("Environment") ?? "Development";
+            var environment = Environment.GetEnvironmentVariable("APP_ENVIRONMENT") ?? "development";
 
             AreaRegistration.RegisterAllAreas();
             GlobalFilters.Filters.Add(new ExceptionLoggerFilter());
