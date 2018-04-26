@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using ContosoUniversity.Logging;
 using Microsoft.Extensions.Configuration;
 using Steeltoe.Extensions.Configuration.CloudFoundry;
 
@@ -20,11 +19,6 @@ namespace ContosoUniversity
                 .AddCloudFoundry();
 
             Configuration = builder.Build();
-
-            foreach (var configurationProvider in Configuration.Providers)
-            {
-                Logger.Instance.Information(configurationProvider.ToString());
-            }
         }
         public static string GetContentRoot()
         {
