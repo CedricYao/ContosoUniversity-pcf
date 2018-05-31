@@ -4,6 +4,7 @@ properties {
 
   Framework '4.5.1'
 
+  $solution_name = "ContosoUniversity"
   $project_name = "ContosoUniversity"
 
   if(-not $version)
@@ -24,7 +25,7 @@ properties {
 
   $base_dir = resolve-path .
   $build_dir = "$base_dir\build"     
-  $solution_file = "$base_dir\$project_name.sln"
+  $solution_file = "$base_dir\$solution_name.sln"
   $project_file = "$base_dir\$project_name\$project_name.csproj"
   $publish_dir = "$base_dir\..\publish"
   $output_dir = "$build_dir\_PublishedWebsites\$project_name"
