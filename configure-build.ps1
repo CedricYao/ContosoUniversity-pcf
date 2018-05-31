@@ -1,6 +1,6 @@
 # pull dependencies
 
-$has_nuget = Get-PackageProvider -ListAvailable | Select-String -Pattern "NuGet" -Quiet
+$has_nuget = Get-PackageProvider -ListAvailable | Out-String | Select-String -Pattern "NuGet" -Quiet
 if(-Not($has_nuget)) {
 	#install Nuget Package Provider
 	Write-Host "No Nuget Package Provider Found: Installing now" -ForegroundColor Red
