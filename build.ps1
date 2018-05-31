@@ -24,25 +24,17 @@ properties {
 
   $base_dir = resolve-path .
   $build_dir = "$base_dir\build"     
-  $source_dir = "$base_dir"
-  $ui_dir = "$source_dir\$project_name\Content"
-  $app_dir = "$source_dir\$project_name"
-  $test_dir = "$build_dir\test"
-  $result_dir = "$build_dir\results"
+  $solution_file = "$base_dir\$project_name.sln"
+  $project_file = "$base_dir\$project_name\$project_name.csproj"
+  $publish_dir = "$base_dir\..\publish"
+  $output_dir = "$build_dir\_PublishedWebsites\$project_name"
 
   $nuget_exe = "$base_dir\tools\nuget\nuget.exe"
-
-  $roundhouse_dir = "$base_dir\tools\roundhouse"
-  $roundhouse_output_dir = "$roundhouse_dir\output"
-  $roundhouse_exe_path = "$roundhouse_dir\rh.exe"
-  $roundhouse_local_backup_folder = "$base_dir\database_backups"
 
   $packageId = if ($env:package_id) { $env:package_id } else { "$project_name" }
 }
    
 #These are aliases for other build tasks. They typically are named after the camelcase letters (rd = Rebuild Databases)
-#aliases should be all lowercase, conventionally
-#please list all aliases in the help task
 task default -depends InitialPrivateBuild
 task dev -depends DeveloperBuild
 task ci -depends IntegrationBuild
@@ -63,7 +55,7 @@ task InitialPrivateBuild -depends Clean, Compile
 
 task DeveloperBuild -depends Clean, SetDebugBuild, Compile
 
-task IntegrationBuild -depends DeveloperBuild
+task IntegrationBuild -depends Clean, SetReleaseBuild, Compile, Publish
 
 task SetDebugBuild {
     $script:project_config = "Debug"
@@ -74,16 +66,23 @@ task SetReleaseBuild {
 }
 
 task Compile -depends Clean { 
-    exec { & $nuget_exe restore $source_dir\$project_name.sln }
-    exec { msbuild.exe /t:build /v:q /p:Configuration=$project_config /p:Platform="Any CPU" /nologo $source_dir\$project_name.sln }
+    exec { & $nuget_exe restore $solution_file }
+    exec { msbuild.exe /t:build /v:q /p:Configuration=$project_config /p:Platform="Any CPU" /p:OutputPath="$build_dir" /nologo $project_file }
 }
 
 task Clean {
-    exec { msbuild /t:clean /v:q /p:Configuration=$project_config /p:Platform="Any CPU" $source_dir\$project_name.sln }
+	delete_directory $build_dir
+	delete_directory $publish_dir
+    exec { msbuild /t:clean /v:q /p:Configuration=$project_config /p:Platform="Any CPU" $solution_file }
+}
+
+task Publish {
+	Write-Host "publish-dir: $publish_dir"
+	Copy-Item $output_dir -Destination $publish_dir -Recurse -Force
 }
 
 # -------------------------------------------------------------------------------------------------------------
-# generalized functions added by Headspring for Help Section
+# generalized functions for Help Section
 # --------------------------------------------------------------------------------------------------------------
 
 function Write-Help-Header($description) {
@@ -123,3 +122,7 @@ function global:delete_file($file) {
     if($file) { remove-item $file -force -ErrorAction SilentlyContinue | out-null } 
 }
 
+function global:delete_directory($directory_name)
+{
+  rd $directory_name -recurse -force  -ErrorAction SilentlyContinue | out-null
+}

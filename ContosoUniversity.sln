@@ -10,9 +10,12 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{39871030-B937-489D-89E1-E4EB48B4F185}"
 	ProjectSection(SolutionItems) = preProject
 		build.bat = build.bat
-		default.ps1 = default.ps1
+		build.ps1 = build.ps1
+		configure-build.ps1 = configure-build.ps1
 		ContosoUniversity\manifest.yml = ContosoUniversity\manifest.yml
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contesso.Tests", "Contesso.Tests\Contesso.Tests.csproj", "{27E282CA-5083-49CB-8670-53E7FE17774D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,6 +27,10 @@ Global
 		{264E21D6-4024-4A53-B1BE-1CD42F3348FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{264E21D6-4024-4A53-B1BE-1CD42F3348FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{264E21D6-4024-4A53-B1BE-1CD42F3348FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27E282CA-5083-49CB-8670-53E7FE17774D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27E282CA-5083-49CB-8670-53E7FE17774D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27E282CA-5083-49CB-8670-53E7FE17774D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27E282CA-5083-49CB-8670-53E7FE17774D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
